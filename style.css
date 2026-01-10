@@ -1,0 +1,402 @@
+:root{
+  --paper-width-mm: 62mm;
+  --paper-min-h-mm: 150mm;
+
+  /* Wendy / handmade palette */
+  --pink-soft: #ffe3f0;
+  --pink-strong: #ff8fc2;
+  --lavender: #ece9ff;
+  --mint: #eafff6;
+  --ink: #3a2b34;
+  --paper: #fffdf8;
+}
+
+/* =========================
+   RESET & BASICS
+========================= */
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:"Quicksand", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* =========================
+   HANDMADE BACKGROUND
+========================= */
+body{
+  background:
+    radial-gradient(circle at 12% 18%, var(--pink-soft), transparent 35%),
+    radial-gradient(circle at 88% 12%, var(--mint), transparent 40%),
+    radial-gradient(circle at 20% 85%, var(--lavender), transparent 45%),
+    linear-gradient(180deg, #ffffff 0%, #fff5fb 100%);
+  position:relative;
+}
+
+
+body::before{
+  background-image:
+    radial-gradient(#ffb6d9 2px, transparent 2px),
+    radial-gradient(#cfc9ff 1.5px, transparent 1.5px);
+  background-size: 120px 120px, 180px 180px;
+  background-position: 20px 40px, 80px 120px;
+  opacity:0.25;
+}
+
+body::after{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cpath d='M40 80 Q120 20 200 80 T360 80' fill='none' stroke='%23ff9ecb' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:repeat;
+  background-size:300px 300px;
+  opacity:0.15;
+}
+
+/* =========================
+   SITE TITLE
+========================= */
+.site-title{
+  font-family:"Rubik Puddles", cursive;
+  font-size:clamp(38px, 6vw, 68px);
+  text-align:center;
+
+  margin:48px auto 32px;
+  padding:0 20px;
+
+  max-width:1000px;
+
+  color:#ff6fae;
+  letter-spacing:1px;
+
+  position:relative;
+  z-index:3;
+
+  text-shadow:
+    0 2px 0 #fff,
+    0 8px 20px rgba(255,120,180,0.35);
+}
+
+
+/* =========================
+   FLOATING CARD (QUESTION)
+========================= */
+.floating-card{
+  position:relative;
+  margin:0 auto 42px;
+  width:calc(min(980px,94%));
+  z-index:2;
+  display:flex;
+  justify-content:center;
+}
+
+.card-inner{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  padding:20px 22px;
+  width:100%;
+
+  background:
+    linear-gradient(180deg, #ffffff, #fff2f8);
+  border-radius:26px;
+
+  border:2px solid #ffd2e7;
+
+  box-shadow:
+    0 10px 28px rgba(255,130,185,0.25),
+    3px 3px 0 rgba(255,180,215,0.35);
+
+  transform:rotate(-0.4deg);
+}
+
+/* =========================
+   QUESTION TEXT
+========================= */
+.question-block{
+  display:flex;
+  flex-direction:column;
+}
+
+.q-title{
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:#a77b90;
+}
+
+.q-text{
+  font-family:"Fredoka", sans-serif;
+  font-size:18px;
+  font-weight:600;
+  line-height:1.35;
+  color:#4a2a3a;
+}
+
+/* =========================
+   INPUT + CONTROLS
+========================= */
+.reply-form{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex:1;
+}
+
+.reply-form input{
+  flex:1;
+  min-width:200px;
+  padding:14px 18px;
+
+  font-family:"Quicksand", sans-serif;
+  font-size:15px;
+
+  border-radius:999px;
+  border:2px dashed #ffc1dc;
+  background:#ffffff;
+
+  outline:none;
+}
+
+.reply-form input::placeholder{
+  color:#c2a3b3;
+}
+
+.reply-form input:focus{
+  border-color:#ff8fc2;
+}
+
+/* =========================
+   BUTTON
+========================= */
+button{
+  padding:12px 24px;
+  border:0;
+  cursor:pointer;
+
+  font-family:"Fredoka", sans-serif;
+  font-size:15px;
+  letter-spacing:0.6px;
+
+  color:white;
+  background:
+    linear-gradient(135deg, #ff78b8, #ffb6d9);
+
+  border-radius:999px;
+
+  box-shadow:
+    0 6px 16px rgba(255,120,180,0.45),
+    2px 2px 0 rgba(255,170,210,0.5);
+}
+
+button:hover{
+  transform:translateY(-1px) rotate(-0.5deg);
+}
+
+button:disabled{
+  opacity:0.6;
+  transform:none;
+}
+
+/* =========================
+   CHAR COUNT
+========================= */
+.char-count{
+  font-size:12px;
+  color:#9c7689;
+}
+
+/* =========================
+   PAPER AREA (GENERATED)
+========================= */
+.paper-wrapper{
+  padding-top:12px;
+  padding-bottom:90px;
+  display:flex;
+  justify-content:center;
+  position:relative;
+  z-index:1;
+}
+
+.paper{
+  width:var(--paper-width-mm);
+  max-width:calc(100% - 20px);
+
+  background:var(--paper);
+  border-radius:6px;
+  border:1px solid #f1cfe0;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08),
+    4px 4px 0 rgba(255,200,225,0.4);
+
+  position:relative;
+}
+
+.paper::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(#f6c9df 1px, transparent 1px);
+  background-size:14px 14px;
+  opacity:0.18;
+  pointer-events:none;
+}
+
+.paper svg{
+  display:block;
+  width:100%;
+  height:auto;
+  background:transparent;
+}
+
+/* =========================
+   PRINT (UNCHANGED)
+========================= */
+@media print{
+  body{
+    background:#fff;
+  }
+
+  .site-title,
+  .floating-card{
+    display:none;
+  }
+
+  .paper{
+    box-shadow:none;
+    border:none;
+    margin:0;
+  }
+
+  @page{
+    size:62mm auto;
+    margin:0;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width:600px){
+  .floating-card{
+    width:100%;
+  }
+
+  .card-inner{
+    flex-direction:column;
+    align-items:stretch;
+    transform:none;
+  }
+
+  .reply-form{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .controls{
+    justify-content:space-between;
+  }
+}
+
+/* =========================
+   SCRIBBLE BACKGROUND
+========================= */
+
+#scribble-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+
+#scribble-bg{
+  z-index:0;
+}
+
+.site-title,
+.floating-card,
+.paper-wrapper{
+  position:relative;
+  z-index:2;
+}
+
+
+/* einzelnes Scribble */
+.scribble{
+  position:absolute;
+  opacity:0.35;
+  filter:
+    drop-shadow(0 6px 12px rgba(255,120,180,0.25));
+  animation:
+    floatY 8s ease-in-out infinite alternate,
+    floatX 12s ease-in-out infinite alternate;
+}
+
+/* leicht unterschiedliche Bewegungen */
+@keyframes floatY{
+  from{ transform:translateY(0); }
+  to{ transform:translateY(-18px); }
+}
+
+@keyframes floatX{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(14px); }
+}
+
+/* pinke Farbe für SVGs */
+.scribble svg{
+  width:100%;
+  height:auto;
+  fill:#ff8fc2;
+  stroke:#ff8fc2;
+}
+
+/* -----------------------------
+   GLITZER-PFERDE-STICKER
+------------------------------ */
+
+/* -----------------------------
+   GLITTER STICKER EFFECT
+------------------------------ */
+
+.sparkle svg {
+  color: #ff78b8;
+  stroke-width: 9;
+}
+
+/* einzelne Glitzerpunkte */
+.glitter {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff 0%, #ffd6ea 40%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glitter-pop 1.4s ease-out forwards;
+}
+
+@keyframes glitter-pop {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) rotate(20deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4) rotate(45deg);
+  }
+}
+
+
+
